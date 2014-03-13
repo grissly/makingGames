@@ -1,4 +1,4 @@
-import pygame, sys, time 
+import pygame, sys
 from pygame.locals import *
 
 pygame.init()
@@ -8,7 +8,7 @@ fpsClock = pygame.time.Clock()
 
 # set up the window
 DISPLAYSURF = pygame.display.set_mode((400,300), 0, 32)
-pygame.display.set_caption('Beeping Animation')
+pygame.display.set_caption('Animation')
 
 # set up vars
 WHITE = (255,255,255)
@@ -21,27 +21,32 @@ direction = 'right'
 while True: # game loop
 	DISPLAYSURF.fill(WHITE)
 
-	if (catx == -5 and caty == 0) or \
-	   (catx == -5 and caty == 225) or \
-	   (catx == 280 and caty == 0) or \
-	   (catx == 280 and caty == 225):
-		sound.play()
-		# time.sleep(1) # wait one second
-		# sound.stop()
-
-	if catx < 280 and caty == 0:
+	if direction == 'right':
 		catx += 5
-
-	elif catx == 280 and caty < 225:
+		if catx == 280:
+			direction = 'down'
+			sound.play()
+	
+	elif direction == 'down':
 		caty += 5
+		if caty == 225:
+			direction = 'left'
+			sound.play()
 
-	elif catx > -5 and caty == 225:
+	elif direction == 'left':
 		catx -= 5
+		if catx < 0:
+			direction = 'up'
+			sound.play()
 
-	elif catx == -5 and caty > 0:
+	elif direction == 'up':
 		caty -= 5
+		if caty == 0:
+			direction = 'right'
+			sound.play()
 
 	DISPLAYSURF.blit(catImg, (catx,caty))
+
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			pygame.quit()
