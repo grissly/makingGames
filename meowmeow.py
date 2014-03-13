@@ -26,8 +26,8 @@ while True: # game loop
 	   (catx == 280 and caty == 0) or \
 	   (catx == 280 and caty == 225):
 		sound.play()
-		time.sleep(1) # wait one second
-		sound.stop()
+		# time.sleep(1) # wait one second
+		# sound.stop()
 
 	if catx < 280 and caty == 0:
 		catx += 5
